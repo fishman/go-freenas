@@ -2,7 +2,6 @@ package freenas
 
 import (
 	"context"
-	"strings"
 )
 
 type NfsShareService service
@@ -34,10 +33,6 @@ func (s *NfsShareService) listShares(ctx context.Context, u string) ([]*NfsShare
 	if err != nil {
 		return nil, nil, err
 	}
-
-	// TODO: remove custom Accept headers when APIs fully launch.
-	acceptHeaders := []string{mediaTypeJSON}
-	req.Header.Set("Accept", strings.Join(acceptHeaders, ", "))
 
 	var nfsshares []*NfsShare
 	resp, err := s.client.Do(ctx, req, &nfsshares)
