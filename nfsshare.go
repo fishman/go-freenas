@@ -23,9 +23,12 @@ type NfsShare struct {
 	Security     []string `json:"nfs_security,omitempty"`
 }
 
+const (
+    nfsPath = "sharing/nfs"
+)
+
 func (s *NfsShareService) List(ctx context.Context) ([]*NfsShare, *Response, error) {
-	u := "sharing/nfs"
-	return s.listShares(ctx, u)
+	return s.listShares(ctx, nfsPath)
 }
 
 func (s *NfsShareService) listShares(ctx context.Context, u string) ([]*NfsShare, *Response, error) {
@@ -62,8 +65,7 @@ func (s *NfsShareService) listShares(ctx context.Context, u string) ([]*NfsShare
 
 // Create a new share
 func (s *NfsShareService) Create(ctx context.Context, share NfsShare) (*NfsShare, *Response, error) {
-	u := "sharing/nfs"
-	req, err := s.client.NewRequest("POST", u, share)
+	req, err := s.client.NewRequest("POST", nfsPath, share)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -78,8 +80,8 @@ func (s *NfsShareService) Create(ctx context.Context, share NfsShare) (*NfsShare
 }
 
 func (s *NfsShareService) Edit(ctx context.Context, number int, share NfsShare) (*NfsShare, *Response, error) {
-	u := fmt.Sprintf("sharing/nfs/%d", number)
-	req, err := s.client.NewRequest("PATCH", u, share)
+	u := fmt.Sprintf("%s/%d", nfsPath, number)
+	req, err := s.client.NewRequest("PUT", u, share)
 	if err != nil {
 		return nil, nil, err
 	}
