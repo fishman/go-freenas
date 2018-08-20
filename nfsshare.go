@@ -20,7 +20,7 @@ type NfsShare struct {
 	Paths        []string `json:"nfs_paths,omitempty"`
 	Quiet        bool     `json:"nfs_quiet,omitempty"`
 	ReadOnly     bool     `json:"nfs_ro,omitempty"`
-	Security     []string `json:"nfs_security,omitempty"`
+	Security     []string `json:"nfs_security"`
 }
 
 const (
