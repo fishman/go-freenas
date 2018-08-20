@@ -2,6 +2,7 @@ package freenas
 
 import (
 	"context"
+	"fmt"
 )
 
 type NfsShareService service
@@ -63,6 +64,22 @@ func (s *NfsShareService) listShares(ctx context.Context, u string) ([]*NfsShare
 func (s *NfsShareService) Create(ctx context.Context, share NfsShare) (*NfsShare, *Response, error) {
 	u := "sharing/nfs"
 	req, err := s.client.NewRequest("POST", u, share)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	newShare := new(NfsShare)
+	resp, err := s.client.Do(ctx, req, newShare)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return newShare, resp, nil
+}
+
+func (s *NfsShareService) Edit(ctx context.Context, number int, share NfsShare) (*NfsShare, *Response, error) {
+	u := fmt.Sprintf("sharing/nfs/%d", number)
+	req, err := s.client.NewRequest("PATCH", u, share)
 	if err != nil {
 		return nil, nil, err
 	}
