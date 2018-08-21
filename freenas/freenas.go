@@ -48,6 +48,7 @@ type Client struct {
 
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
+	Datasets  *DatasetService
 	NfsShares *NfsShareService
 	Users     *UserService
 
@@ -118,6 +119,7 @@ func NewClient(server, user, password string) *Client {
 	}
 
 	c.common.client = c
+	c.Datasets = (*DatasetService)(&c.common)
 	c.NfsShares = (*NfsShareService)(&c.common)
 	c.Users = (*UserService)(&c.common)
 	return c
