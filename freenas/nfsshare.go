@@ -24,11 +24,11 @@ type NfsShare struct {
 }
 
 const (
-	apiPath = "sharing/nfs"
+	nfsPath = "sharing/nfs"
 )
 
 func (s *NfsShareService) List(ctx context.Context) ([]*NfsShare, *Response, error) {
-	return s.listShares(ctx, apiPath)
+	return s.listShares(ctx, nfsPath)
 }
 
 func (s *NfsShareService) listShares(ctx context.Context, u string) ([]*NfsShare, *Response, error) {
@@ -48,7 +48,7 @@ func (s *NfsShareService) listShares(ctx context.Context, u string) ([]*NfsShare
 
 // Get a single share
 func (s *NfsShareService) Get(ctx context.Context, number int) (*NfsShare, *Response, error) {
-	u := fmt.Sprintf("%s/%d", apiPath, number)
+	u := fmt.Sprintf("%s/%d", nfsPath, number)
 	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
@@ -65,7 +65,7 @@ func (s *NfsShareService) Get(ctx context.Context, number int) (*NfsShare, *Resp
 
 // Create a new share
 func (s *NfsShareService) Create(ctx context.Context, share NfsShare) (*NfsShare, *Response, error) {
-	req, err := s.client.NewRequest("POST", apiPath, share)
+	req, err := s.client.NewRequest("POST", nfsPath, share)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -80,7 +80,7 @@ func (s *NfsShareService) Create(ctx context.Context, share NfsShare) (*NfsShare
 }
 
 func (s *NfsShareService) Edit(ctx context.Context, number int, share NfsShare) (*NfsShare, *Response, error) {
-	u := fmt.Sprintf("%s/%d", apiPath, number)
+	u := fmt.Sprintf("%s/%d", nfsPath, number)
 	req, err := s.client.NewRequest("PUT", u, share)
 	if err != nil {
 		return nil, nil, err

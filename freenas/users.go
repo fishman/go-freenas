@@ -27,11 +27,11 @@ type User struct {
 }
 
 const (
-	apiPath = "account/users"
+	userPath = "account/users"
 )
 
 func (s *UserService) List(ctx context.Context) ([]*User, *Response, error) {
-	return s.listUsers(ctx, apiPath)
+	return s.listUsers(ctx, userPath)
 }
 
 func (s *UserService) listUsers(ctx context.Context, u string) ([]*User, *Response, error) {
@@ -49,9 +49,26 @@ func (s *UserService) listUsers(ctx context.Context, u string) ([]*User, *Respon
 	return users, resp, nil
 }
 
+// Get a single User
+func (s *UserService) Get(ctx context.Context, number int) (*User, *Response, error) {
+	u := fmt.Sprintf("%s/%d", userPath, number)
+	req, err := s.client.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	user := new(User)
+	resp, err := s.client.Do(ctx, req, user)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return user, resp, nil
+}
+
 // Create a new user
 func (s *UserService) Create(ctx context.Context, user User) (*User, *Response, error) {
-	req, err := s.client.NewRequest("POST", apiPath, user)
+	req, err := s.client.NewRequest("POST", userPath, user)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -66,7 +83,7 @@ func (s *UserService) Create(ctx context.Context, user User) (*User, *Response, 
 }
 
 func (s *UserService) Edit(ctx context.Context, number int, user User) (*User, *Response, error) {
-	u := fmt.Sprintf("%s/%d", apiPath, number)
+	u := fmt.Sprintf("%s/%d", userPath, number)
 	req, err := s.client.NewRequest("PUT", u, user)
 	if err != nil {
 		return nil, nil, err
