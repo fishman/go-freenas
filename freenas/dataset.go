@@ -14,12 +14,12 @@ type Dataset struct {
 	Comment          string `json:"comment,omitempty"`
 	Compression      string `json:"compression,omitempty"`
 	Dedup            string `json:"dedup,omitempty"`
-	Quota            string `json:"quota,omitempty"`
 	Readonly         string `json:"readonly,omitempty"`
-	Recordsize       string `json:"recordsize,omitempty"`
-	Refquota         string `json:"refquota,omitempty"`
-	Refreservation   string `json:"refreservation,omitempty"`
-	Reservation      string `json:"reservation,omitempty"`
+	Quota            int64  `json:"quota,omitempty"`
+	Recordsize       int64  `json:"recordsize,omitempty"`
+	Refquota         int64  `json:"refquota,omitempty"`
+	Refreservation   int64  `json:"refreservation,omitempty"`
+	Reservation      int64  `json:"reservation,omitempty"`
 }
 
 const (
