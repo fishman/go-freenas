@@ -56,6 +56,7 @@ type Client struct {
 
 	Config    *Config
 	NfsShares *NfsShareService
+	Users     *UserService
 
 	debug bool
 }
@@ -70,21 +71,22 @@ func NewClient(config *Config) *Client {
 	baseURL, _ := url.Parse(config.Address + "/api/v1.0/")
 
 	c := &Client{
-        client: httpClient,
-        BaseURL: baseURL,
-        UserAgent: userAgent,
-        Config: config,
-        debug: false,
-    }
+		client:    httpClient,
+		BaseURL:   baseURL,
+		UserAgent: userAgent,
+		Config:    config,
+		debug:     false,
+	}
 
 	c.common.client = c
 	c.NfsShares = (*NfsShareService)(&c.common)
+	c.Users = (*UserService)(&c.common)
 	return c
 }
 
 func (c *Client) NewRequest(method, urlStr string, body interface{}) (*http.Request, error) {
 	if !strings.HasSuffix(urlStr, "/") {
-        urlStr = urlStr + "/"
+		urlStr = urlStr + "/"
 	}
 	u, err := c.BaseURL.Parse(urlStr)
 	if err != nil {
