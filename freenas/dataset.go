@@ -10,15 +10,15 @@ type DatasetService service
 type Dataset struct {
 	Name             string `json:"name"`
 	Atime            string `json:"atime,omitempty"`
-	Case_sensitivity string `json:"ase_sensitivity,omitempty"`
+	Case_sensitivity string `json:"case_sensitivity,omitempty"`
 	Comment          string `json:"comment,omitempty"`
 	Compression      string `json:"compression,omitempty"`
-	Dedup            string `json:"edup,omitempty"`
+	Dedup            string `json:"dedup,omitempty"`
 	Quota            string `json:"quota,omitempty"`
-	Readonly         string `json:"eadonly,omitempty"`
+	Readonly         string `json:"readonly,omitempty"`
 	Recordsize       string `json:"recordsize,omitempty"`
-	Refquota         string `json:"efquota,omitempty"`
-	Refreservation   string `json:"efreservation,omitempty"`
+	Refquota         string `json:"refquota,omitempty"`
+	Refreservation   string `json:"refreservation,omitempty"`
 	Reservation      string `json:"reservation,omitempty"`
 }
 
