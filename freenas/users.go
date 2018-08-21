@@ -50,7 +50,7 @@ func (s *UserService) listUsers(ctx context.Context, u string) ([]*User, *Respon
 }
 
 // Get a single User
-func (s *UserService) Get(ctx context.Context, number int) (*User, *Response, error) {
+func (s *UserService) Get(ctx context.Context, number int64) (*User, *Response, error) {
 	u := fmt.Sprintf("%s/%d", userPath, number)
 	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
@@ -82,7 +82,7 @@ func (s *UserService) Create(ctx context.Context, user User) (*User, *Response, 
 	return newUser, resp, nil
 }
 
-func (s *UserService) Edit(ctx context.Context, number int, user User) (*User, *Response, error) {
+func (s *UserService) Edit(ctx context.Context, number int64, user User) (*User, *Response, error) {
 	u := fmt.Sprintf("%s/%d", userPath, number)
 	req, err := s.client.NewRequest("PUT", u, user)
 	if err != nil {
