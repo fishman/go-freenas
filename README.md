@@ -7,7 +7,7 @@ go-freenas is a Go client library for accessing the [FreeNAS API](http://api.fre
 ## Usage ##
 
 ```go
-import "github.com/fishman/go-freenas"
+import "github.com/fishman/go-freenas/freenas"
 ```
 
 Construct a new FreeNAS client, then use the various services on the client to
@@ -20,7 +20,7 @@ import (
   "context"
   "fmt"
 
-  freenas "github.com/fishman/go-freenas"
+  "github.com/fishman/go-freenas/freenas"
 )
 
 func main() {
@@ -33,6 +33,7 @@ func main() {
   for _, element := range shares {
       fmt.Println(element.ID, element.Paths)
   }
+
 }
 ```
 ## Ref ##
