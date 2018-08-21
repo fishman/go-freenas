@@ -24,13 +24,7 @@ import (
 )
 
 func main() {
-  client := freenas.NewClient(
-    &freenas.Config{
-      Address:  "http://freenas.local",
-      User:     "root",
-      Password: "freenas",
-    },
-  )
+  client := freenas.NewClient("http://freenas.local", "root", "freenas")
   // Turn on debugging
   client.Debug(true)
 
@@ -39,14 +33,6 @@ func main() {
   for _, element := range shares {
       fmt.Println(element.ID, element.Paths)
   }
-
-  share := freenas.NfsShare{
-      Comment: "Kube",
-      Paths: []string{"/mnt/kubernetes/persistentvol1"},
-  }
-
-  res, _, _ := client.NfsShares.Edit(context.Background(), 18, share)
-  fmt.Println(res)
 }
 ```
 ## Ref ##
