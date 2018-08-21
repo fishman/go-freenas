@@ -30,6 +30,15 @@ const (
 	userPath = "account/users"
 )
 
+func (s *UserService) Delete(ctx context.Context, number int64) (*Response, error) {
+	u := fmt.Sprintf("%s/%d", userPath, number)
+	req, err := s.client.NewRequest("DELETE", u, nil)
+	if err != nil {
+		return nil, err
+	}
+	return s.client.Do(ctx, req, nil)
+}
+
 func (s *UserService) List(ctx context.Context) ([]*User, *Response, error) {
 	return s.listUsers(ctx, userPath)
 }

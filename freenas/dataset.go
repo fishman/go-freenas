@@ -26,6 +26,15 @@ const (
 	datasetPath = "storage/dataset"
 )
 
+func (s *DatasetService) Delete(ctx context.Context, ds string) (*Response, error) {
+	u := fmt.Sprintf("%s/%s", datasetPath, ds)
+	req, err := s.client.NewRequest("DELETE", u, nil)
+	if err != nil {
+		return nil, err
+	}
+	return s.client.Do(ctx, req, nil)
+}
+
 func (s *DatasetService) List(ctx context.Context) ([]*Dataset, *Response, error) {
 	return s.listDatasets(ctx, datasetPath)
 }
